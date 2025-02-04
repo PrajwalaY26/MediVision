@@ -41,9 +41,7 @@ MediVision aims to provide an all-encompassing solution by offering:
 9. **No Mandatory Login** – Users can skip signing up but will have limited features; registered users can track history and reminders.
 
 ## 7. Architecture Diagram
-```
-[User] → [Frontend (React)] → [Backend (FastAPI/Django)] → [AI Model] → [Database]
-```
+![Architecture Diagram](assets/images/mediVision-workflow.png)
 
 ## 8. Tech Stack
 - **Frontend:** React.js

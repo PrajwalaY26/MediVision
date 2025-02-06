@@ -43,7 +43,14 @@ MediVision aims to provide an all-encompassing solution by offering:
 - **AI/ML:** TensorFlow, OpenCV, Speech-to-Text API, Streamlit
 
 ## 9. Screenshots
-*(Add screenshots of UI/UX for better visualization.)*
+![IMG-20250206-WA0003](https://github.com/user-attachments/assets/38a6729c-fcae-4d9a-832d-16a826183eca)
+![IMG-20250206-WA0004](https://github.com/user-attachments/assets/fee53d25-2456-4419-b810-8f86c2d8df3d)
+![IMG-20250206-WA0005](https://github.com/user-attachments/assets/e2d54e61-dda8-4951-b175-3a5d6a4a2254)
+![IMG-20250206-WA0006](https://github.com/user-attachments/assets/f0e9e8d4-47ba-4ec8-9da5-62a701c1fc25)
+![IMG-20250206-WA0007](https://github.com/user-attachments/assets/bb96c9bb-a9c4-49b1-a787-ee917a11f816)
+![IMG-20250206-WA0008](https://github.com/user-attachments/assets/d64fa04f-b93a-4e1d-bb53-3d624558ccb3)
+![IMG-20250206-WA0009](https://github.com/user-attachments/assets/eb066b0d-f66d-4a6f-9296-b38072784f92)
+![IMG-20250206-WA0010](https://github.com/user-attachments/assets/a975b1e6-ebe3-4901-914f-d8532616c2c3)
 
 ## 10. Challenges Faced
 - Ensuring AI-driven medicine identification is accurate

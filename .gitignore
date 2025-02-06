@@ -1,0 +1,7 @@
+# .gitignore
+
+# Ignore Python virtual environment
+venv/
+env/
+ENV/
+.venv/

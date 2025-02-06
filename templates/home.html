@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediVision - Your Medical Assistant</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">MediVision</div>
+            <div class="auth-buttons">
+                <a href="/login"><button class="btn-secondary">Login</button></a>
+                <a href="/signup"><button class="btn-secondary">Sign Up</button></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span>Medical Assistant</span></h1>
+            <p>Identify medicines, track prescriptions, and get instant medical assistance with our comprehensive healthcare platform.</p>
+        </div>
+    </section>
+
+
+    <section class="features-container">
+        <div class="cards">
+            <!-- Medicine Identification Card -->
+            <div class="card" data-tab="identify">
+                <i class="fas fa-pills"></i>
+                <h3>Medicine Identification</h3>
+                <p>Upload a photo to identify medicine details.</p>
+            </div>
+
+            <!-- Prescription Analyzer Card -->
+            <div class="card" data-tab="prescriptions">
+                <i class="fas fa-file-medical"></i>
+                <h3>Prescription Analyzer</h3>
+                <p>Analyze handwritten prescriptions into digital format.</p>
+            </div>
+
+            <!-- Medicine Tracker Card -->
+            <div class="card" data-tab="tracker">
+                <i class="fas fa-clock"></i>
+                <h3>Medicine Tracker</h3>
+                <p>Set reminders for your medicine schedule.</p>
+            </div>
+        </div>
+
+
+        <!-- Feature Content Section -->
+        <div class="feature-details">
+            <!-- Medicine Identification Content -->
+            <div class="tab-content" id="identify">
+                        <h3>Identify Any Medicine</h3>
+                        <p>Upload a photo of your medicine to get instant information about:</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Name and Composition</li>
+                            <li><i class="fas fa-check"></i> Dosage Information</li>
+                            <li><i class="fas fa-check"></i> Uses and Benefits</li>
+                            <li><i class="fas fa-check"></i> Side Effects</li>
+                        </ul>
+                    </div>
+                    <div class="upload-section">
+                        <i class="fas fa-camera"></i>
+                        <p>Drag and drop or click to upload</p>
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <label for="fileInput">Choose File</label>
+                            <input type="file" id="fileInput" accept="image/*">
+                            <button type="submit">Upload</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prescription Analyzer Tab -->
+            <div class="tab-content" id="prescriptions">
+    
+                        <h3>Analyze Prescriptions</h3>
+                        <p>Convert handwritten prescriptions into digital format:</p>
+                        <ul >
+                            <li><i class="fas fa-check"></i> Extract Medicine Names</li>
+                            <li><i class="fas fa-check"></i> Detect Dosage Instructions</li>
+                            <li><i class="fas fa-check"></i> Organize into Digital Format</li>
+                            <li><i class="fas fa-check"></i> Save for Future Reference</li>
+                        </ul>
+                    
+                    <div class="upload-section">
+                        <i class="fas fa-file-medical"></i>
+                        <p>Upload your prescription</p>
+                        <button class="btn-primary" onclick="runApp()">Prescription</button>
+                    </div>
+                </div>
+            
+
+               <!-- Medicine Tracker Tab -->
+       
+               <div class="tab-content" id="tracker">
+                <h3>Medicine Schedule</h3>
+                
+                <form id="reminderForm">
+                    <label for="reminder">Reminder:</label>
+                    <input type="text" id="reminder" name="reminder" required><br>
+                    
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required><br>
+                    
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required><br>
+                    
+                    <button type="submit">Set Reminder</button>
+                </form>
+            
+                <!-- Reminder List -->
+                <h4>Upcoming Reminders:</h4>
+                <ul id="reminderList"></ul>
+                
+                <!-- Notification List -->
+                <h4>Notifications:</h4>
+                <ul id="notificationList"></ul>
+            
+                <!-- Notification Dot (initially hidden) -->
+                <div id="notificationDot" style="display: none; position: absolute; top: 10px; right: 10px; width: 10px; height: 10px; background-color: red; border-radius: 50%;"></div>
+            </div>
+            
+
+
+
+
+
+</div>
+
+
+    </section>
+
+    <script> window.chtlConfig = { chatbotId: "1718745342" } </script>
+    <script async data-id="1718745342" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+
+    
+
+    <script src="home.js"></script>
+
+    <script>
+        // JavaScript for Tab/Card Functionality
+        document.querySelectorAll(".card").forEach(card => {
+            card.addEventListener("click", () => {
+                // Remove active class from all tabs and cards
+                document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+                document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
+
+                // Add active class to selected card and tab
+                card.classList.add("active");
+                document.getElementById(card.getAttribute("data-tab")).classList.add("active");
+            });
+        });
+
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function () {
+                // Get the target ID from the card's data-tab attribute
+                const targetId = this.getAttribute('data-tab');
+                const target = document.getElementById(targetId);
+                
+                if (target) {
+                    // Adjust scroll position to show the target section
+                    const offset = 80; // Adjust this for the height of your header or spacing
+                    const targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
+        
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        });
+        
+        
+    </script>
+
+
+
+
+
+    <script>
+        document.getElementById('openModel').addEventListener('click', function() {
+            fetch("http://127.0.0.1:5000/")
+            .then(response => {
+                if (response.ok) {
+                    window.open("http://127.0.0.1:5000/", "_blank");
+                } else {
+                    fetch("http://localhost:5001/start-app");  // Start app.py if not running
+                }
+            })
+            .catch(error => {
+                fetch("http://localhost:5001/start-app");  // Try to start it
+            });
+        });
+    </script>
+    
+
+
+
+
+
+
+    <script>
+        function runApp() {
+            fetch('/run_app2', { method: 'POST' }) // Call the Flask endpoint
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    window.open("http://localhost:8501", "_blank"); // Open Streamlit app
+                } else {
+                    alert("Failed to start the app.");
+                }
+            });
+        }
+        </script>
+
+
+
+
+
+
+
+
+
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            let fileInput = document.getElementById("fileInput").files[0];
+            if (!fileInput) {
+                alert("Please select an image first.");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("file", fileInput);
+
+            fetch("/upload", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    // Redirect to medicinepage.html with results
+                    localStorage.setItem("medicineData", JSON.stringify(data));
+                    window.location.href = "/medicine";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+<script>
+   
+  
+
+   document.getElementById("reminderForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let medicineName = document.getElementById("reminder").value;
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+
+    if (!medicineName || !date || !time) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    let reminderDatetime = new Date(`${date}T${time}`);
+    let currentDatetime = new Date();
+    let timeDifference = reminderDatetime - currentDatetime;
+
+    if (timeDifference <= 0) {
+        alert("Please select a future date and time.");
+        return;
+    }
+
+    let reminderMessage = `⏰ Time to take your medicine: ${medicineName}`;
+
+    // Display in the reminder list
+    let listItem = document.createElement("li");
+    listItem.textContent = reminderMessage;
+    document.getElementById("reminderList").appendChild(listItem);
+
+    setTimeout(() => {
+        triggerNotification(reminderMessage);
+    }, timeDifference);
+});
+
+function triggerNotification(message) {
+    document.getElementById("notificationDot").style.display = "block"; // Show red dot
+
+    let notificationList = document.getElementById("notificationList");
+    let listItem = document.createElement("li");
+    listItem.textContent = message;
+    notificationList.appendChild(listItem);
+
+    if ("Notification" in window) {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                new Notification("Medicine Reminder!", {
+                    body: message,
+                    icon: "https://via.placeholder.com/50"
+                });
+            }
+        });
+    }
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .hero-content {
+        margin-bottom: 0.5rem; /* Reduced the bottom margin */
+    }
+
+    .features-container {
+        margin-top: 1.5rem; /* Reduced the top margin */
+    }
+
+    /* Card Styles */
+    .cards {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 1.5rem; /* Reduced top margin */
+    }
+
+    .card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 1rem;
+        padding: 2rem;
+        width: 30%;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card i {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .card p {
+        color: #64748b;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card.active {
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Feature Details */
+    .feature-details {
+        margin-top: 2rem; /* Reduced spacing */
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        position: relative;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .auth-buttons {
+        position: absolute;
+        top: 50%;
+        right: 2rem; /* Position it at the right corner with some margin */
+        transform: translateY(-50%);
+    }
+
+    .btn-secondary {
+        padding: 0.5rem 1rem;
+        background-color: #007bff; /* Change to your theme color */
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn-secondary:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+</style>
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+<script src="{{ url_for('static', filename='home.js') }}"></script>
+
+
+
+
+</body>
+
+</html>

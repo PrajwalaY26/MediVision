@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpage with Header & Router</title>
+    <style>
+       
+       * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+body {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #E3F2FD;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.header {
+    background-color: #01796F;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+
+
+.notification:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.login-btn {
+    background-color: white;
+    color: #01796F;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Container and Main Content */
+.container {
+    display: flex;
+    flex: 1;
+    padding: 30px;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Static Image Section */
+.static-image {
+    width: 35%;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.static-image img {
+    width: 100%;
+    height: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Medicine Info Styles */
+.medicine-info {
+    text-align: center;
+    margin-top: 20px;
+    color: #01796F;
+    padding: 15px;
+}
+
+.medicine-info h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.medicine-info p {
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+/* Confirmation Section */
+.confirmation-section {
+    text-align: center;
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.confirmation-section button {
+    background-color: #01796F;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.confirmation-section button:hover {
+    background-color: #016158;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(1, 121, 111, 0.2);
+}
+
+/* Scrolling Text Section */
+.scrolling-text {
+    width: 65%;
+    height: 700px;
+    overflow-y: auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.scrolling-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrolling-text::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.scrolling-text::-webkit-scrollbar-thumb {
+    background: #01796F;
+    border-radius: 4px;
+}
+
+.scrolling-text h2 {
+    color: #01796F;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.scrolling-text ul {
+    padding-left: 20px;
+    margin: 15px 0;
+}
+
+.scrolling-text li {
+    margin: 10px 0;
+    color: #2c3e50;
+}
+
+/* Voice Reading Buttons */
+.scrolling-text button {
+    background-color: #01796F;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 10px 20px 0;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.scrolling-text button:hover {
+    background-color: #016158;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background-color: #01796F;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat and Control Buttons */
+.chat-logo, .mic-button, .mute-button, .back-button {
+    position: fixed;
+    background-color: #01796F;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.chat-logo:hover, .mic-button:hover, .mute-button:hover, .back-button:hover {
+    transform: scale(1.1);
+    background-color: #016158;
+}
+
+.chat-popup {
+    position: fixed;
+    bottom: 140px;
+    right: 30px;
+    background-color: white;
+    color: #01796F;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .static-image, .scrolling-text {
+        width: 100%;
+    }
+    
+    .static-image {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 20px;
+    }
+    
+    .right-section {
+        gap: 15px;
+    }
+    
+    .login-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    
+    .medicine-info h2 {
+        font-size: 24px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.thank-you {
+    animation: fadeIn 0.3s ease-in-out;
+} 
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="{{ url_for('static', filename='y40.jpg') }}" alt="Logo" class="logo">
+        <div class="right-section">
+            <span class="notification">&#128276;</span>
+            <button class="login-btn">Login / Signup</button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="static-image">
+            <!-- Medicine Image -->
+            <img src="{{ url_for('static', filename='paracetmol3.jpeg') }}" alt="Recognized Medicine">
+            <!-- Medicine Info -->
+            <div class="medicine-info">
+                <h2 id="medicine-name"></h2>
+                <p id="medicine-dosage"></p>
+            </div>
+            <!-- Question: Is the Medicine Same? -->
+            <div id="confirmation-section" class="confirmation-section">
+                <p><strong>Is the drug image same?</strong></p>
+                <button id="yes-btn">Yes</button>
+                <button id="no-btn">No</button>
+            </div>
+            <!-- Thank You Message (Hidden Initially) -->
+            <div id="thank-you" style="display: none; text-align: center; font-size: 18px; color: #01796F;">
+                <strong>Thank you!</strong>
+            </div>
+        </div>
+
+        <div class="scrolling-text">
+
+       
+            <button onclick="startVoiceReading()">Read Page</button>
+            <button id="stopButton" onclick="stopReading()">Stop Reading</button>
+
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2025 Webpage. All rights reserved.</p>
+    </footer>
+
+
+
+
+    <!-- <div class="mute-button" onclick="toggleMute()">🔈</div> -->
+
+    <script> window.chtlConfig = { chatbotId: "1718745342" } </script>
+    <script async data-id="1718745342" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+    
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let medicineData = localStorage.getItem("medicineData");
+
+            if (medicineData) {
+                let data = JSON.parse(medicineData);
+
+                // ✅ Set Medicine Name & Dosage Below Image
+                document.getElementById("medicine-name").innerText = data.name;
+                document.getElementById("medicine-dosage").innerText = `Dosage: ${data.dosage}`;
+
+                // ✅ Show Medicine Details in Scrolling Box
+                let resultDiv = document.createElement("div");
+                resultDiv.innerHTML = `
+                <h2>${data.name}</h2><br>
+                <p><strong>Dosage:</strong> ${data.dosage}</p><br><br>
+                
+                <div><strong>Usage:</strong></div>
+                <ul>${data.usage.map(item => `<li>${item}</li>`).join('')}</ul><br><br>
+            
+                <div><strong>Side Effects:</strong></div>
+                <ul>${data.side_effects.map(item => `<li>${item}</li>`).join('')}</ul><br><br>
+            
+                <div><strong>Benefits:</strong></div>
+                <ul>${data.benefits.map(item => `<li>${item}</li>`).join('')}</ul><br><br>
+            
+                <div><strong>Summary:</strong></div><br><br>
+                <p>${data.summary}</p>
+            `;
+                document.querySelector(".scrolling-text").appendChild(resultDiv);
+            }
+
+            // ✅ Handle "Yes" Button Click (Hide Question & Show Thank You)
+            document.getElementById("yes-btn").addEventListener("click", function() {
+                document.getElementById("confirmation-section").style.display = "none";
+                document.getElementById("thank-you").style.display = "block";
+                localStorage.removeItem("medicineData"); // Prevent duplicate display
+            });
+
+            document.getElementById("no-btn").addEventListener("click", function() {
+                alert("Re-scanning the image...");
+                localStorage.removeItem("medicineData"); // Clear old data
+            
+                // Call the backend API to re-predict the medicine
+                fetch("/reprocess", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ image: "paracetmol3.jpeg" }) // Pass the existing image name
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert("Error: " + data.error);
+                    } else {
+                        // ✅ Update the medicine name & details dynamically
+                        document.getElementById("medicine-name").innerText = data.name;
+                        document.getElementById("medicine-dosage").innerText = `Dosage: ${data.dosage}`;
+            
+                        // ✅ Update the scrolling text box
+                        document.querySelector(".scrolling-text").innerHTML = `
+                            <h2>${data.name}</h2>
+                            <p><strong>Dosage:</strong> ${data.dosage}</p>
+                            <p><strong>Usage:</strong> ${data.usage}</p>
+                            <p><strong>Side Effects:</strong> ${data.side_effects}</p>
+                            <p><strong>Benefits:</strong> ${data.benefits}</p>
+                        `;
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            });
+            
+        });
+
+
+
+        function toggleMute() {
+            let mute = document.querySelector(".mute-button");
+            if (mute.innerText === "🔈") {
+                mute.innerText = "🔇";
+            } else {
+                mute.innerText = "🔈";
+            }
+        }
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+let speechSynthesisUtterance;
+let isSpeaking = false;
+
+function startVoiceReading() {
+    let text = document.querySelector(".scrolling-text").innerText;
+    
+    if (!isSpeaking) {
+        speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(speechSynthesisUtterance);
+        isSpeaking = true;
+
+        speechSynthesisUtterance.onend = () => {
+            isSpeaking = false;
+        };
+    }
+}
+
+function stopReading() {
+    if (isSpeaking) {
+        speechSynthesis.cancel();
+        isSpeaking = false;
+    }
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
